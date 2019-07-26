@@ -22,6 +22,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script type="text/javascript">
+    /*
       $(function()
       {
           $(document).on('click', '.btn-add', function(e)
@@ -125,6 +126,7 @@
               });
           }
       });
+      */
   </script>
 
   <script type="text/javascript">
@@ -232,13 +234,10 @@
                   type: "POST",
                   url: "https://wjr1txbeff.execute-api.us-east-1.amazonaws.com/PROD/stops",
                   data: data,
-                  dataType: 'jsonp',
-                  xhrFields: {
-                      withCredentials: true
-                  },
+                  dataType: 'json',
                   crossDomain: true,
                   success: function(msg) {
-                      alert(msg);
+                      //alert(msg);
                       if (msg.status == 'success') {
                           //$("#sendmessage").addClass("show");
                           //$("#errormessage").removeClass("show");
@@ -257,7 +256,7 @@
                       }
 
                   }
-              }).then($(location).attr('href',"https://www.roadrai.se/trip.html"));
+              })//.then($(location).attr('href',"https://www.roadrai.se/trip.html"));
               return false;
           });
 

@@ -231,13 +231,10 @@
                   type: "POST",
                   url: "https://wjr1txbeff.execute-api.us-east-1.amazonaws.com/PROD/trips",
                   data: data,
-                  dataType: 'jsonp',
-                  xhrFields: {
-                      withCredentials: true
-                  },
+                  dataType: 'json',
                   crossDomain: true,
                   success: function(msg) {
-                       alert(msg);
+                       //alert(msg);
                       if (msg.status == 'success') {
                           //$("#sendmessage").addClass("show");
                           //$("#errormessage").removeClass("show");
@@ -256,7 +253,7 @@
                       }
 
                   }
-              }).then($(location).attr('href',"https://www.roadrai.se/stop.html"));
+              })//.then($(location).attr('href',"https://www.roadrai.se/stop.html"));
               return false;
           });
 
