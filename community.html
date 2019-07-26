@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>roadraise</title>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/roadraise.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+      $(function()
+      {
+          $(document).on('click', '.btn-add', function(e)
+          {
+              e.preventDefault();
+              var controlForm = $('#myRepeatingFields:first'),
+                  currentEntry = $(this).parents('.entry:first'),
+                  newEntry = $(currentEntry.clone()).appendTo(controlForm);
+              newEntry.find('input').val('');
+              controlForm.find('.entry:not(:last) .btn-add')
+                  .removeClass('btn-add').addClass('btn-remove')
+                  .removeClass('btn-success').addClass('btn-danger')
+                  .html('');
+          }).on('click', '.btn-remove', function(e)
+          {
+              e.preventDefault();
+              $(this).parents('.entry:first').remove();
+              return false;
+          });
+      });
+
+      function preview_images()
+      {
+          var total_file=document.getElementById("images").files.length;
+          for(var i=0;i<total_file;i++)
+          {
+              $('#image_preview').append("<div class='col-md-3'><img class='img-responsive' src='"+URL.createObjectURL(event.target.files[i])+"'></div>");
+          }
+      }
+
+      $('#add_more').click(function() {
+          "use strict";
+          $(this).before($("<div/>", {
+              id: 'filediv'
+          }).fadeIn('slow').append(
+              $("<input/>", {
+                  name: 'file[]',
+                  type: 'file',
+                  id: 'file',
+                  multiple: 'multiple',
+                  accept: 'image/*'
+              })
+          ));
+      });
+
+      $('#upload').click(function(e) {
+          "use strict";
+          e.preventDefault();
+
+          if (window.filesToUpload.length === 0 || typeof window.filesToUpload === "undefined") {
+              alert("No files are selected.");
+              return false;
+          }
+
+          // Now, upload the files below...
+          // https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications#Handling_the_upload_process_for_a_file.2C_asynchronously
+      });
+
+      deletePreview = function (ele, i) {
+          "use strict";
+          try {
+              $(ele).parent().remove();
+              window.filesToUpload.splice(i, 1);
+          } catch (e) {
+              console.log(e.message);
+          }
+      }
+
+      $("#file").on('change', function() {
+          "use strict";
+
+          // create an empty array for the files to reside.
+          window.filesToUpload = [];
+
+          if (this.files.length >= 1) {
+              $("[id^=previewImg]").remove();
+              $.each(this.files, function(i, img) {
+                  var reader = new FileReader(),
+                      newElement = $("<div id='previewImg" + i + "' class='previewBox'><img /></div>"),
+                      deleteBtn = $("<span class='delete' onClick='deletePreview(this, " + i + ")'>X</span>").prependTo(newElement),
+                      preview = newElement.find("img");
+
+                  reader.onloadend = function() {
+                      preview.attr("src", reader.result);
+                      preview.attr("alt", img.name);
+                  };
+
+                  try {
+                      window.filesToUpload.push(document.getElementById("file").files[i]);
+                  } catch (e) {
+                      console.log(e.message);
+                  }
+
+                  if (img) {
+                      reader.readAsDataURL(img);
+                  } else {
+                      preview.src = "";
+                  }
+
+                  newElement.appendTo("#filediv");
+              });
+          }
+      });
+  </script>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg text-uppercase fixed-top" style="background-color:#50E3C2;" id="mainNav">
+  <b><a class="navbar-brand js-scroll-trigger" href="index.html" style="font-size: 24px">roadraise</a></b>
+
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  </nav>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="index.html">Home</a>
+        <a class="js-scroll-trigger" href="community.html">Community</a>
+        <a class="js-scroll-trigger" href="trip.html">Trips</a>
+        <a class="js-scroll-trigger" href="plottrip.html">Plan a trip</a>
+        <a class="js-scroll-trigger" href="stop.html">Share your stops</a>
+      </li>
+    </ul>
+  </nav>
+
+  <section class="content-section bg-light" id="trip">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+
+          <img src="img/bus.png" width="100%"/>
+
+          <p>Roadraise captures your road trip experience, helps you raise awareness and funds for a cause you care about, and recommends people and places of interest to you to meet along the way. Hit the road with our community's trips and causes.</p>
+
+          <a class="btn btn-warning btn-xl js-scroll-trigger" href="plottrip.html">Share Your Road Trip</a>
+
+          <br/>
+          <br/>
+
+          <h2>Trips</h2>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="card">
+                <img class="card-img" src="img/ng.jpg" alt="Card image">
+                <div class="card-img-overlay">
+                  <h4 style="color:white" class="card-title"><a href="trip.html" style="color:white">NY-NOLA, Startup Bus</a></h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <img class="card-img" src="img/pch.jpeg" alt="Card image">
+                <div class="card-img-overlay">
+                  <h4 style="color:white" class="card-title">Pacific Coast Dreams</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <img class="card-img" src="img/austin.jpeg" alt="Card image">
+                <div class="card-img-overlay">
+                  <h4 style="color:white" class="card-title">Austin Bound</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h2>Causes</h2>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="card bg-info" style="min-height:10em">
+                <div class="card-img-overlay">
+                  <h4 style="color:white" class="card-title">Hope Center Uganda</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card bg-info" style="min-height:10em">
+                <div class="card-img-overlay">
+                  <h4 style="color:white" class="card-title">Girls Who Code</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card bg-info" style="min-height:10em">
+                <div class="card-img-overlay">
+                  <h4 style="color:white" class="card-title">Alzheimer's Association</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>
