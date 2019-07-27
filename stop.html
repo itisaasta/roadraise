@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>roadraise</title>
+  <title>RoadRaise</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom Fonts -->
@@ -244,7 +244,7 @@
                           //$('.tripForm').find("input, textarea").val("");
                           //$("html, body").animate({ scrollTop: 0 }, "slow").delay(2000);
                           console.log("NNNNNN")
-                          $(location).attr('href',"https://www.roadrai.se/trip.html");
+                          $(location).attr('href',"trip.html");
                       } else {
                           //$("#sendmessage").removeClass("show");
                           console.log("AHHHH")
@@ -270,6 +270,84 @@
       });
 
 
+  </script>
+
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.247.1.min.js"></script>
+
+  <script>
+      //insert name of your image bucket
+      const Bucket = 'www.roadrai.se';
+      //insert identity pool id for your cognito pool
+      //you can get this by clicking Edit Identity Pool from your Cognito Pool
+      const IdentityPoolId = 'us-east-1:c687b9c1-bd98-4b98-ad55-7f97748a1c71';
+      const credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId })
+      //insert region for your image bucket
+      const region = 'us-east-1'; //e.g. 'us-east-1'
+      const bucketUrl = `https://s3.amazonaws.com/${Bucket}`
+      //uses the AWS SDK
+      //updates its configuration with your credentials and bucket region
+      AWS.config.update({
+          region,
+          credentials
+      });
+      //uses the AWS SDK
+      //creates an S3 service object that can interact with your bucket
+      const s3 = new AWS.S3({
+          apiVersion: '2006-03-01',
+          params: { Bucket }
+      });
+      function contentContainer() {
+          return document.getElementById('content')
+      }
+      //function called from index.html
+      //gets name of all objects in the s3 bucket
+      //updates HTML with the file name and image
+      /*
+      function listImages() {
+          s3.listObjects({Delimiter: 'img/'}, function(err, data) {
+              if (err) {
+                  return alert('Error: ' + err.message);
+              } else {
+                  const images = data.Contents;
+                  const fileNames = images.map(function (image) { return image.Key; });
+                  const html = fileNames.map(function(file) {
+                      return `<div class="col-md-4 panel panel-default">
+          <div class="panel-heading">${file}</div>
+          <div class="panel-body">
+            <img src="${bucketUrl}/${file}">
+          </div>
+        </div>`
+                  })
+                  contentContainer().innerHTML = html.join('');
+              }
+          });
+      }
+      */
+
+      function addImage() {
+          const files = document.getElementById('upload').files;
+          const file = files[0];
+          const fileName = file.name;
+
+          //build the params needed for the putObject call
+          const params = {
+              Key: "img/" + fileName,
+              Body: file,
+              ACL: 'public-read' //this makes the object readable
+          }
+          var finalURL = bucketUrl + '/img/' + fileName;
+          s3.putObject(params, function(err, data) {
+              if (err) {
+                  return alert('There was an error uploading your photo: ',   err.message);
+              } else {
+                  //if successful, call listImages again so we see the new image
+                  //listImages()
+
+                  document.getElementById("showImage")
+                  $( "#showImage" ).append( "<img src=" + finalURL + " />" );
+              }
+          });
+      }
   </script>
 
 </head>
@@ -312,8 +390,14 @@
 
             <p>Share photos of your stop</p>
 
-            <div class="col-md-6">
+            <div class="col-lg-12 mx-auto" id="showImage">
+              <!--
               <input type="file" class="form-control" id="images" name="images[]" onchange="preview_images();" multiple/>
+              -->
+              <div class="form-group">
+                <input id="upload" type="file" class="form-control-file" accept="image/*" >
+              </div>
+              <button type='button' class="btn btn-info btn-xs" onclick="addImage()">Upload</button>
             </div>
             <!--
             <div class="col-md-6">
@@ -323,7 +407,7 @@
             <br/>
 
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="social" name="social" required="true">
+              <input type="checkbox" class="form-check-input" id="social" name="social">
               <label class="form-check-label" for="exampleCheck1">Share to social?</label>
             </div>
 

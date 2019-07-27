@@ -19,8 +19,8 @@ body {
 }
 
 .content-section {
-  padding-top: 7.5rem;
-  padding-bottom: 7.5rem;
+  padding-top: 5rem;
+  padding-bottom: 2.5rem;
 }
 
 .content-section-heading h2 {
@@ -378,7 +378,6 @@ a:hover, a:focus, a:active {
 
 
 
-
 .entry:not(:first-of-type)
 {
   margin-top: 10px;
@@ -387,7 +386,6 @@ a:hover, a:focus, a:active {
 {
   font-size: 12px;
 }
-
 
 
 
@@ -436,4 +434,48 @@ a:hover, a:focus, a:active {
   height:  20px;
   border-radius: 50%;
   background: #ccc;
+}
+
+/*This is entirely for customizations for the sizes 
+of trips and causes. Also made the height of the images even 
+with one another*/
+
+.card {
+  margin: 10px;
+}
+
+.card-img-overlay {
+  height:215px;
+  
+}
+
+.card-img {
+  height: 215px;
+  
+}
+
+.bg-info {
+  background-color: #17a2b8!important;
+  height: 215px;
+  
+}
+
+.card-title {
+  //margin-top: 5em;
+  padding: 1em;
+  font-size: 22px;
+}
+
+p.text {
+  color: white;
+}
+
+a.js-scroll-trigger {
+  font-size: 20px;
+}
+/* This is for the h2 header for Trip, Cause, and Routes of inspiration */
+
+h2.header {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

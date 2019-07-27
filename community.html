@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>roadraise</title>
+  <title>RoadRaise</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom Fonts -->
@@ -148,7 +148,7 @@
           var chart = am4core.create("chartdiv", am4maps.MapChart);
           chart.geodata = am4geodata_worldLow;
           chart.projection = new am4maps.projections.Miller();
-          chart.homeZoomLevel = 8;
+          chart.homeZoomLevel = 7;
           chart.homeGeoPoint = {
               latitude: 36.1627,
               longitude: -86.7816
@@ -371,8 +371,8 @@
 
           <br/>
           <br/>
-
-          <h2>Trips</h2>
+<!---classified the h2 for the "trips" to make it much nicer and adding margin/padding around it.-->
+          <h2 class = "header">Trips</h2>
 
           <div class="row">
             <div class="col-sm-4">
@@ -400,39 +400,42 @@
               </div>
             </div>
           </div>
-
-          <h2>Causes</h2>
+<!--I've inputed the images for the causes starting here!-->
+          <h2 class="header">Causes</h2>
 
           <div class="row">
             <div class="col-sm-4">
               <div class="card bg-info" style="min-height:10em">
+                <img class="card-img" src="img/hcu.png" alt="Card image">
                 <div class="card-img-overlay">
-                  <h4 style="color:white" class="card-title">Hope Center Uganda</h4>
+                  <h4 style="color:white" class="card-title"></h4>
                 </div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="card bg-info" style="min-height:10em">
+                <img class="card-img" src="img/bees.jpg" alt="Card image">
                 <div class="card-img-overlay">
-                  <h4 style="color:white" class="card-title">Girls Who Code</h4>
+                  <h4 style="color:white" class="card-title"></h4>
                 </div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="card bg-info" style="min-height:10em">
+                <img class="card-img" src="img/alzheimer.jpeg" alt="Card image">
                 <div class="card-img-overlay">
-                  <h4 style="color:white" class="card-title">Alzheimer's Association</h4>
+                  <h4 style="color:white" class="card-title"></h4>
                 </div>
               </div>
             </div>
           </div>
 
-          <h2>Routes for Inspiration</h2>
+          <h2 class = "header">Routes for Inspiration</h2>
 
           <div class="row">
-            <div class="col-lg-10 mx-auto">
+            <div class = "col-lg-10 mx-auto">
             <div id="chartdiv"></div>
-            </div>
+          </div>
           </div>
 
         </div>
